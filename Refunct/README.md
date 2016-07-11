@@ -1,5 +1,5 @@
 # RefunctAutosplitter
-Created by [@Batedurgonnadie](https://github.com/BatedUrGonnaDie)
+Readme by @firestack
 ## Info
 The autosplitter works by tracking how many buttons 
 have been pressed so far. 

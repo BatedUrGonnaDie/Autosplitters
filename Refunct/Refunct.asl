@@ -1,13 +1,12 @@
-
 state("Refunct-Win32-Shipping")
 {
-    byte button_count : 0x01909C54, 0x134, 0x23c, 0x104, 0x4c, 0x20;
-
+    byte button_count : 0x018ACA38, 0x504, 0x480, 0xCC, 0x4c, 0x20;
+    float height : 0x18AEF84;
 }
 
 start
 {
-    return current.button_count == 0 && old.button_count != 0;
+    return current.height <= -4800 && current.button_count == 0;
 }
 
 split
@@ -17,5 +16,5 @@ split
 
 reset
 {
-    return current.button_count == 0 && old.button_count != 0;
+    return current.height <= -4800;
 }

@@ -11,9 +11,7 @@ There are 31 sections so you'll need 31 splits.
 [Bombmask has a splits file you can use on splits.io](https://splits.io/ojo).
 
 The Autosplitter automatically starts the timer when you 
-press reset after the first button has been pressed. 
-So the autosplitter follows the rules for the game 
-based on when you are supposed to start the timer.
+press reset as long as you have gotten the first button.
 
 ## Instructions
 - Start Livesplit

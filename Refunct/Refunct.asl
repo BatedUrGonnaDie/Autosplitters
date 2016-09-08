@@ -1,14 +1,12 @@
 state("Refunct-Win32-Shipping")
 {
-    byte level : 0x01E17CB0, 0x7A8, 0x6AC, 0x63C, 0x68, 0x20; // TODO: fix address
-    //integer restarts // TODO: find address
+    byte level : 0x01E14B78, 0xE0, 0x7B4, 0x80, 0x6FC, 0x20;
+    int resets : 0x1DCF7DC;
 }
 
 start
 {
-    // TODO: replace uncommented with commented
-    //return current.restarts == 1 && old.restarts == 0;
-    return current.level == 0 && old.level != 0;
+    return current.resets > old.resets && current.resets > 2;
 }
 
 split
@@ -18,7 +16,5 @@ split
 
 reset
 {
-    // TODO: replace uncommented with commented
-    //return current.restarts > old.restarts;
-    return current.level == 0 && old.level != 0;
+    return current.resets > old.resets;
 }

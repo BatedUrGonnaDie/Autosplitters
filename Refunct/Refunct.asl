@@ -1,12 +1,12 @@
 state("Refunct-Win32-Shipping")
 {
-    byte level : 0x01D5DC14, 0xC, 0x54, 0x1C, 0x180, 0x50;
-    int resets : 0x1DCF7DC;
+    int level : 0x1DCF7DC; // TODO: fix address
+    int resets : 0x1DCF7DC; // TODO: fix address (must be right after level so +32bit = +0x20)
 }
 
 start
 {
-    return current.resets > old.resets && current.resets > 2;
+    return current.resets > old.resets;
 }
 
 split

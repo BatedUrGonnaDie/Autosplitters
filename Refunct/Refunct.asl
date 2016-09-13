@@ -25,7 +25,7 @@ reset
 
 gameTime
 {
-    if (current.level == 31 && current.startPartialSeconds >= 0 && current.endPartialSeconds >= 0)
+    if (current.level == 31 && current.startPartialSeconds >= 0)
     {
         return TimeSpan.FromSeconds(
             Convert.ToDouble(current.endSeconds - current.startSeconds) +

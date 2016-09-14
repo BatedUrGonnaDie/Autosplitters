@@ -297,7 +297,8 @@
   </Segments>
   <AutoSplitterSettings>
     <Version>1.5</Version>
-    <ScriptPath>Z:\Temp\Streaming Sutff\Timers\LiveSplit\Components\Refunct.asl</ScriptPath>
+    <ScriptPath>
+    </ScriptPath>
     <Start>True</Start>
     <Reset>True</Reset>
     <Split>True</Split>

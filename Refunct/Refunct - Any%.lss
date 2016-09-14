@@ -297,8 +297,7 @@
   </Segments>
   <AutoSplitterSettings>
     <Version>1.5</Version>
-    <ScriptPath>
-    </ScriptPath>
+    <ScriptPath>Components\Refunct.asl</ScriptPath>
     <Start>True</Start>
     <Reset>True</Reset>
     <Split>True</Split>

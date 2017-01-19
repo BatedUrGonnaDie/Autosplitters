@@ -20,12 +20,12 @@ split
 
 reset
 {
-    return current.resets > old.resets && current.level == 0;
+    return current.resets > old.resets;
 }
 
 gameTime
 {
-    if (current.level == 31 && current.startPartialSeconds >= 0)
+    if (current.endSeconds > current.startSeconds)
     {
         return TimeSpan.FromSeconds(
             Convert.ToDouble(current.endSeconds - current.startSeconds) +

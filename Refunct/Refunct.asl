@@ -20,7 +20,7 @@ split
 
 reset
 {
-    return current.resets > old.resets;
+    return current.resets > old.resets && current.level == 0;
 }
 
 gameTime

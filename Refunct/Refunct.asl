@@ -15,7 +15,7 @@ start
 
 split
 {
-    return current.level > old.level;
+    return current.level > old.level || current.resets > old.resets;
 }
 
 reset

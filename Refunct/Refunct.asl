@@ -15,12 +15,12 @@ start
 
 split
 {
-    return current.level > old.level;
+    return current.level > old.level || current.resets > old.resets;
 }
 
 reset
 {
-    return current.resets > old.resets;
+    return current.resets > old.resets && current.level == 0;
 }
 
 gameTime

@@ -5,8 +5,7 @@
   <CategoryName>Any%</CategoryName>
   <Metadata>
     <Run id="" />
-    <Platform usesEmulator="False">
-    </Platform>
+    <Platform usesEmulator="False">PC</Platform>
     <Region>
     </Region>
     <Variables />

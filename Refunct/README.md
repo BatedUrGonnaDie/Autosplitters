@@ -1,25 +1,22 @@
 # RefunctAutosplitter
 Readme by @firestack
 ## Info
-The autosplitter works by tracking how many buttons 
-have been pressed so far. 
-When you first start the game button count is 
-equal to 0 so it won't automatically start splitting yet.
-The button count variable we found changes on on section. 
-Sometimes it takes 2-3 buttons to trigger the next section.
-There are 31 sections so you'll need 31 splits.
-[Bombmask has a splits file you can use on splits.io](https://splits.io/ojo).
-
-The Autosplitter automatically starts the timer when you 
-press reset as long as you have gotten the first button.
+Splitter tracks buttons hit.  Will start automatically on new game
+and end on the last button.  Will reset the timer on new game selection as well.
+Sample splits are included in this folder as well.
 
 ## Instructions
-- Start Livesplit
--- Ensure you have the autosplitter file loaded into livesplit
+### Easiest (will update automatically)
+- Start LiveSplit
 - Start Refunct
-- Hit the first button
-- Reset and start your run
+- In LiveSplit, select the game "Refunct"
+- Enable autosplitter for selected game
 
-When you reset the autosplitter doesn't save your times automatically 
-(currently a livesplit ASL limitation?) so you need to reset/finish 
-the run manually if you would like to keep your best times.
+### Manually Downloading (will not update automatically)
+- Start LiveSplit
+- Start Refunct
+- In layout, add autosplitter and point to .asl file you downloaded from here
+
+After completing a run, the autosplitter cannot reset the splits if you have beaten best times.
+Those need to be saved manually before the splitter will continue functioning.
+This is a limitation of LiveSplit.

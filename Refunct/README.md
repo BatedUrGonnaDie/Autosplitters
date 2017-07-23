@@ -1,5 +1,5 @@
-# RefunctAutosplitter
-Readme by @firestack
+# Refunct Autosplitter
+Readme by @firestack and @batedurgonnadie
 ## Info
 Splitter tracks buttons hit.  Will start automatically on new game
 and end on the last button.  Will reset the timer on new game selection as well.

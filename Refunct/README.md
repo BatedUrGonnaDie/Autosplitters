@@ -1,4 +1,4 @@
-# Refunct Autosplitter
+# RefunctAutosplitter
 Readme by @firestack
 ## Info
 Splitter tracks buttons hit.  Will start automatically on new game

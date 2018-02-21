@@ -1,2 +1,3 @@
 ## Collection of Autosplitters
-- [Refunct Autosplitter ReadMe](Refunct/README.md)
+- [Refunct Autosplitter README](Refunct/README.md)
+- [Xeodrifter Autosplitter README](Xeodrifter/README.md)

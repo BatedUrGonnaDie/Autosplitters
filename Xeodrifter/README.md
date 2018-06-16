@@ -1,7 +1,7 @@
 # Xeodrifter Autosplitter
 Readme by @batedurgonnadie
 ## Info
-Splitter tracks boss upgrades, health pickups, and weapon pickups.  Cannot do the last split of the run.
+Splitter tracks boss upgrades.  Start and reset both happen when you select the file you run on.
 
 ## Instructions
 ### Easiest (will update automatically)

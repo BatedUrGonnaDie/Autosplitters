@@ -1,25 +1,9 @@
 state("XeodrifterSteam")
 {
-    int   abilities : 0xAC208;
-    int   health    : 0x630028;
-    int   gun       : 0xAC20C;
+    byte  paused    : 0x62D34A;
+    int   location  : 0xA9900;
+    int   text_box  : 0x62D390;
     ulong frames    : 0xAC290;
-}
-
-startup
-{
-    vars.timerModel = new TimerModel { CurrentState = timer };
-    settings.Add("health", false, "Split on Health Pickups");
-    settings.Add("gun", false, "Split on Gun Upgrade Pickups");
-}
-
-update
-{
-    if (current.health < old.health || current.gun < old.gun)
-    {
-        int back_splits = (old.health - current.health) + (old.gun - current.gun);
-        for (int i = 0; i < back_splits; i++) { vars.timerModel.UndoSplit(); }
-    }
 }
 
 start
@@ -29,15 +13,7 @@ start
 
 split
 {
-    if (settings["health"])
-    {
-        if (current.health > old.health) { return true; }
-    }
-    if (settings["gun"])
-    {
-        if (current.gun > old.gun) { return true; }
-    }
-    if (current.abilities > old.abilities)
+    if (old.text_box == 0 && current.text_box == 1 && (current.location == 155 || current.location == 166) && current.paused == 0)
     {
         return true;
     }

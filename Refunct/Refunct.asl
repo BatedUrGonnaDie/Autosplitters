@@ -1,11 +1,11 @@
 state("Refunct-Win32-Shipping")
 {
-    int   level               : 0x1FB896C, 0xC0, 0xAC;
-    int   resets              : 0x1FB896C, 0xC0, 0xB0;
-    int   startSeconds        : 0x1FB896C, 0xC0, 0xB4;
-    float startPartialSeconds : 0x1FB896C, 0xC0, 0xB8;
-    int   endSeconds          : 0x1FB896C, 0xC0, 0xBC;
-    float endPartialSeconds   : 0x1FB896C, 0xC0, 0xC0;
+    int   level               : 0x1FBF9FC, 0xC0, 0xA8;
+    int   resets              : 0x1FBF9FC, 0xC0, 0xAC;
+    int   startSeconds        : 0x1FBF9FC, 0xC0, 0xB0;
+    float startPartialSeconds : 0x1FBF9FC, 0xC0, 0xB4;
+    int   endSeconds          : 0x1FBF9FC, 0xC0, 0xB8;
+    float endPartialSeconds   : 0x1FBF9FC, 0xC0, 0xBC;
 }
 
 start

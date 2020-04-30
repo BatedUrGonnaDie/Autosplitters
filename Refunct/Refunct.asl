@@ -46,14 +46,14 @@ startup
     settings.Add("31", true, "Button 37 (split 31)", "normalsplits");
 
     settings.Add("plusbuttonsplits", false, "Split when pressing non-progressive buttons");
-    settings.Add("6.1", false, "Button 7 (first button of split 7)", "plusbuttonsplits");
-    settings.Add("9.1", false, "Button 11 (first button of split 10)", "plusbuttonsplits");
-    settings.Add("17.1", false, "Button 20 (first button of split 18)", "plusbuttonsplits");
-    settings.Add("25.1", false, "Button 29 (first button of split 26)", "plusbuttonsplits");
-    settings.Add("25.2", false, "Button 30 (second button of split 26)", "plusbuttonsplits");
-    settings.Add("27.1", false, "Button 33 (first button of split 28)", "plusbuttonsplits");
+    settings.Add("61", false, "Button 7 (first button of split 7)", "plusbuttonsplits");
+    settings.Add("91", false, "Button 11 (first button of split 10)", "plusbuttonsplits");
+    settings.Add("171", false, "Button 20 (first button of split 18)", "plusbuttonsplits");
+    settings.Add("251", false, "Button 29 (first button of split 26)", "plusbuttonsplits");
+    settings.Add("252", false, "Button 30 (second button of split 26)", "plusbuttonsplits");
+    settings.Add("271", false, "Button 33 (first button of split 28)", "plusbuttonsplits");
 
-    settings.Add("cubesplits", true, "Split when collecting cubes");
+    settings.Add("cubesplits", false, "Split when collecting cubes");
 }
 
 init
@@ -64,13 +64,9 @@ init
 update
 {
     if (current.level != old.level)
-    {
         vars.numPlusButton = 0;
-    }
     else if (current.plusbuttons != old.plusbuttons)
-    {
         vars.numPlusButton++;
-    }
 }
 
 start
@@ -81,9 +77,9 @@ start
 split
 {
     return
-        (current.level > old.level && settings[current.level.ToString()]) ||
-        (current.cubes > old.cubes && settings["cubesplits"]) ||
-        (current.plusbuttons > old.plusbuttons && vars.numPlusButton > 0 && settings[current.level.ToString() + "." + vars.numPlusButton.ToString()]) ||
+        current.level > old.level && settings[current.level.ToString()] ||
+        current.cubes > old.cubes && settings["cubesplits"] ||
+        current.plusbuttons != old.plusbuttons && vars.numPlusButton > 0 && settings[current.level.ToString() + vars.numPlusButton.ToString()] ||
         current.resets > old.resets;
 }
 
@@ -95,10 +91,8 @@ reset
 gameTime
 {
     if (current.endSeconds > current.startSeconds)
-    {
         return TimeSpan.FromSeconds(
             Convert.ToDouble(current.endSeconds - current.startSeconds) +
             Convert.ToDouble(current.endPartialSeconds - current.startPartialSeconds)
         );
-    }
 }

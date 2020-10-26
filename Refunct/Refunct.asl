@@ -22,7 +22,7 @@ startup
 
 start
 {
-    if (current.resets > old.resets)
+    if (current.resets != old.resets)
     {
         vars.levelTime = timer.CurrentTime.RealTime;
         return true;
@@ -32,20 +32,20 @@ start
 
 split
 {
-    if (current.level > old.level && settings["levelsplits"] && 
+    if (current.level != old.level && settings["levelsplits"] && 
         (timer.CurrentTime.RealTime - vars.levelTime).TotalSeconds > 1.0)
     {
         vars.levelTime = timer.CurrentTime.RealTime;
         return true;
     }
     return
-        current.cubes > old.cubes && settings["cubesplits"] ||
-        current.resets > old.resets;
+        current.cubes != old.cubes && settings["cubesplits"] ||
+        current.resets != old.resets;
 }
 
 reset
 {
-    if (current.resets > old.resets && current.level == 0)
+    if (current.resets != old.resets && current.level == 0)
     {
         vars.levelTime = timer.CurrentTime.RealTime;
         return true;

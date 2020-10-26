@@ -17,20 +17,20 @@ startup
 
 start
 {
-    return current.resets > old.resets;
+    return current.resets != old.resets;
 }
 
 split
 {
     return
-        current.level > old.level && settings["levelsplits"] ||
-        current.cubes > old.cubes && settings["cubesplits"] ||
-        current.resets > old.resets;
+        current.level != old.level && settings["levelsplits"] ||
+        current.cubes != old.cubes && settings["cubesplits"] ||
+        current.resets != old.resets;
 }
 
 reset
 {
-    return current.resets > old.resets && current.level == 0;
+    return current.resets != old.resets && current.level == 0;
 }
 
 gameTime

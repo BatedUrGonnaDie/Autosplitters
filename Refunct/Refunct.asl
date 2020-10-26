@@ -1,6 +1,6 @@
 state("Refunct-Win32-Shipping") {
 	//bool paused               : 0x1E311E0, 0x0, 0x660, 0x428; // Broken as of now!
-	int plusbuttons           : 0x1F82E94, 0x274, 0x0, 0x8, 0x24, 0x0, 0x90;
+	int plusButtons           : 0x1F82E94, 0x274, 0x0, 0x8, 0x24, 0x0, 0x90;
 	byte cubes                : 0x1FBF9EC, 0xC0, 0x9C;
 	byte level                : 0x1FBF9EC, 0xC0, 0xA8;
 	int resets                : 0x1FBF9EC, 0xC0, 0xAC;
@@ -88,13 +88,14 @@ update {
 }
 
 start {
-	return current.resets > old.resets; // || !current.paused && old.paused && settings["unpauseStart"];
+	return
+		current.resets > old.resets; // || !current.paused && old.paused && settings["unpauseStart"];
 }
 
 split {
 	if (settings["rando"]) return settings["seeded"] ? current.level != old.level && current.level != 0 : current.level != old.level && current.level == 31;
 	else
-		if (current.plusbuttons != old.plusbuttons && vars.sW.ElapsedMilliseconds > 100) {
+		if (current.plusButtons != old.plusButtons && vars.sW.ElapsedMilliseconds > 100) {
 			vars.numPlusButton++;
 			return settings[current.level.ToString() + "." + vars.numPlusButton.ToString()];
 		} else

@@ -16,8 +16,21 @@ init
 
 startup
 {
+    int[] levelButtons = {
+        1, 2, 3, 4, 5, 6,
+        8, 9, 10,
+        12, 13, 14, 15, 16, 17, 18, 19,
+        21, 22, 23, 24, 25, 26, 27, 28,
+        31, 32,
+        34, 35, 36, 37
+    };
     settings.Add("levelsplits", true, "Split on level rise");
+    for (var index = 1; index <= 31; ++index)
+        settings.Add("l" + index.ToString(), true, "Level " + index.ToString() + " (button " + levelButtons[index - 1].ToString() + ")", "levelsplits");
+
     settings.Add("cubesplits", false, "Split on cube collect");
+    for (var index = 1; index <= 18; ++index)
+        settings.Add("c" + index.ToString(), true, "Cube " + index.ToString(), "cubesplits");
 }
 
 start
@@ -32,14 +45,14 @@ start
 
 split
 {
-    if (current.level != old.level && settings["levelsplits"] && 
+    if (current.level != old.level && settings["l" + current.level.ToString()] && 
         (timer.CurrentTime.RealTime - vars.levelTime).TotalSeconds > 1.0)
     {
         vars.levelTime = timer.CurrentTime.RealTime;
         return true;
     }
     return
-        current.cubes != old.cubes && settings["cubesplits"] ||
+        current.cubes != old.cubes && settings["c" + current.cubes.ToString()] ||
         current.resets != old.resets;
 }
 

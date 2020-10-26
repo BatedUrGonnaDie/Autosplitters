@@ -53,6 +53,7 @@ startup {
 		settings.Add("25.2", false, "Button 30 (first button of split 26)", "plusButtonSplits");
 		settings.Add("27.1", false, "Button 33 (first button of split 28)", "plusButtonSplits");
 	settings.Add("cubeSplits", false, "Split when collecting cubes");
+		for (var i = 1; i <= 18; i++) settings.Add("cube" + i.ToString(), false, "Cube Number " + i.ToString(), "cubeSplits")
 	settings.Add("rando", false, "Enable Randomizer features");
 		settings.Add("seeded", false, "Spliting on every button (mostly for seeded runs)", "rando");
 }
@@ -71,8 +72,7 @@ update {
 }
 
 start {
-	return
-		current.resets > old.resets;
+	return current.resets > old.resets;
 }
 
 split {
@@ -84,7 +84,7 @@ split {
 		} else
 			return
 				current.level > old.level && settings[current.level.ToString()] ||
-				current.cubes > old.cubes && settings["cubeSplits"] ||
+				current.cubes > old.cubes && settings["cube" + current.cubes.ToString()] ||
 				current.resets > old.resets;
 	}
 }

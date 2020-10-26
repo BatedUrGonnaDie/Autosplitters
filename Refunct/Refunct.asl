@@ -1,5 +1,4 @@
 state("Refunct-Win32-Shipping") {
-	//bool paused               : 0x1E311E0, 0x0, 0x660, 0x428; // Broken as of now!
 	int plusButtons           : 0x1F82E94, 0x274, 0x0, 0x8, 0x24, 0x0, 0x90;
 	byte cubes                : 0x1FBF9EC, 0xC0, 0x9C;
 	byte level                : 0x1FBF9EC, 0xC0, 0xA8;
@@ -11,7 +10,6 @@ state("Refunct-Win32-Shipping") {
 }
 
 startup {
-	vars.tM = new TimerModel {CurrentState = timer};
 	vars.sW = new Stopwatch();
 	vars.plusB = new HashSet<int> {6, 10, 19, 28, 32};
 
@@ -57,15 +55,6 @@ startup {
 	settings.Add("cubeSplits", false, "Split when collecting cubes");
 	settings.Add("rando", false, "Enable Randomizer features");
 		settings.Add("seeded", false, "Spliting on every button (mostly for seeded runs)", "rando");
-
-	/*
-	 * settings.Add("timerManip", false, "Additional timer features (for testing and timing purposes)");
-	 * settings.Add("unpauseStart", false, "Start timer when unpausing", "timerManip");
-	 * settings.Add("pauseSplit", false, "Split when pausing", "timerManip");
-	 * settings.Add("menuPause", false, "Pause timer when opening the menu", "timerManip");
-	 *
-	 * This is defunct until I can find a reliable boolean to determine pausing.
-	 */
 }
 
 init {
@@ -79,30 +68,25 @@ update {
 			vars.sW.Reset();
 			vars.numPlusButton = 0;
 		}
-
-	/*
-	 * if (settings["menuPause"] &&
-	 *  (current.paused && !old.paused && timer.CurrentPhase == TimerPhase.Running ||
-	 *  !current.paused && old.paused && timer.CurrentPhase == TimerPhase.Paused)) vars.tM.Pause();
-	 */
 }
 
 start {
 	return
-		current.resets > old.resets; // || !current.paused && old.paused && settings["unpauseStart"];
+		current.resets > old.resets;
 }
 
 split {
 	if (settings["rando"]) return settings["seeded"] ? current.level != old.level && current.level != 0 : current.level != old.level && current.level == 31;
-	else
+	else {
 		if (current.plusButtons != old.plusButtons && vars.sW.ElapsedMilliseconds > 100) {
 			vars.numPlusButton++;
 			return settings[current.level.ToString() + "." + vars.numPlusButton.ToString()];
 		} else
 			return
-				//current.paused && !old.paused && settings["pauseSplit"] ||
 				current.level > old.level && settings[current.level.ToString()] ||
-				current.cubes > old.cubes && settings["cubeSplits"];
+				current.cubes > old.cubes && settings["cubeSplits"] ||
+				current.resets > old.resets;
+	}
 }
 
 reset {

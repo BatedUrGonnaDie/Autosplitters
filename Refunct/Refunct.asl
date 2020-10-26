@@ -9,6 +9,11 @@ state("Refunct-Win32-Shipping")
     float endPartialSeconds   : 0x1FBF9EC, 0xC0, 0xBC;
 }
 
+init
+{
+    vars.levelTime = timer.CurrentTime.RealTime;
+}
+
 startup
 {
     settings.Add("levelsplits", true, "Split on level rise");
@@ -17,20 +22,35 @@ startup
 
 start
 {
-    return current.resets != old.resets;
+    if (current.resets > old.resets)
+    {
+        vars.levelTime = timer.CurrentTime.RealTime;
+        return true;
+    }
+    return false;
 }
 
 split
 {
+    if (current.level > old.level && settings["levelsplits"] && 
+        (timer.CurrentTime.RealTime - vars.levelTime).TotalSeconds > 1.0)
+    {
+        vars.levelTime = timer.CurrentTime.RealTime;
+        return true;
+    }
     return
-        current.level != old.level && settings["levelsplits"] ||
-        current.cubes != old.cubes && settings["cubesplits"] ||
-        current.resets != old.resets;
+        current.cubes > old.cubes && settings["cubesplits"] ||
+        current.resets > old.resets;
 }
 
 reset
 {
-    return current.resets != old.resets && current.level == 0;
+    if (current.resets > old.resets && current.level == 0)
+    {
+        vars.levelTime = timer.CurrentTime.RealTime;
+        return true;
+    }
+    return false;
 }
 
 gameTime

@@ -46,7 +46,7 @@ start
 split
 {
     if (current.level != old.level && settings["l" + current.level.ToString()] && 
-        (timer.CurrentTime.RealTime - vars.levelTime).TotalSeconds > 1.0)
+        (timer.CurrentTime.RealTime - vars.levelTime).TotalSeconds > 0.25)
     {
         vars.levelTime = timer.CurrentTime.RealTime;
         return true;

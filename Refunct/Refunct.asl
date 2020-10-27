@@ -58,7 +58,7 @@ split
 
 reset
 {
-    if (current.resets != old.resets && current.level == 0)
+    if (current.resets != old.resets && current.level != 1)
     {
         vars.levelTime = timer.CurrentTime.RealTime;
         return true;

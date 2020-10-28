@@ -51,7 +51,6 @@ start
 		vars.subButton = 0;
 		return true;
 	}
-	return false;
 }
 
 split
@@ -82,7 +81,6 @@ reset
 		vars.subButton = 0;
 		return true;
 	}
-	return false;
 }
 
 gameTime

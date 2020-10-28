@@ -39,7 +39,7 @@ startup
 
 init
 {
-	vars.lastSplit = timer.CurrentTime.RealTime;
+	vars.splitTime = Environment.TickCount;
 	vars.subButton = 0;
 }
 
@@ -47,7 +47,7 @@ start
 {
 	if (current.resets != old.resets)
 	{
-		vars.lastSplit = timer.CurrentTime.RealTime;
+		vars.splitTime = Environment.TickCount;
 		vars.subButton = 0;
 		return true;
 	}
@@ -55,19 +55,25 @@ start
 
 split
 {
-	if (current.level != old.level && settings[current.level.ToString()] && 
-		(timer.CurrentTime.RealTime - vars.lastSplit).TotalSeconds > 0.2)
+	if (current.level != old.level && settings[current.level.ToString()])
 	{
-		vars.lastSplit = timer.CurrentTime.RealTime;
-		vars.subButton = 0;
-		return true;
+		int time = Environment.TickCount;
+		if (time - vars.splitTime > 200)
+		{
+			vars.splitTime = time;
+			vars.subButton = 0;
+			return true;
+		}
 	}
-	if (current.subButtons != old.subButtons && settings[current.level.ToString() + "-" + vars.subButton.ToString()] && 
-		(timer.CurrentTime.RealTime - vars.lastSplit).TotalSeconds > 0.2)
+	if (current.subButtons != old.subButtons && settings[current.level.ToString() + "-" + vars.subButton.ToString()])
 	{
-		vars.lastSplit = timer.CurrentTime.RealTime;
-		++vars.subButton;
-		return true;
+		int time = Environment.TickCount;
+		if (time - vars.splitTime > 200)
+		{
+			vars.splitTime = time;
+			++vars.subButton;
+			return true;
+		}
 	}
 	return current.cubes != old.cubes && settings["c" + current.cubes.ToString()] ||
 		current.resets != old.resets;
@@ -77,7 +83,7 @@ reset
 {
 	if (current.resets != old.resets && current.level != 1)
 	{
-		vars.lastSplit = timer.CurrentTime.RealTime;
+		vars.splitTime = Environment.TickCount;
 		vars.subButton = 0;
 		return true;
 	}

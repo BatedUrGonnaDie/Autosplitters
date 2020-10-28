@@ -1,5 +1,6 @@
 state("Refunct-Win32-Shipping")
 {
+    int   subButtons          : 0x1F82E94, 0x274, 0x0, 0x8, 0x24, 0x0, 0x90;
     int   cubes               : 0x1FBF9EC, 0xC0, 0x9C;
     int   level               : 0x1FBF9EC, 0xC0, 0xA8;
     int   resets              : 0x1FBF9EC, 0xC0, 0xAC;
@@ -7,11 +8,6 @@ state("Refunct-Win32-Shipping")
     float startPartialSeconds : 0x1FBF9EC, 0xC0, 0xB4;
     int   endSeconds          : 0x1FBF9EC, 0xC0, 0xB8;
     float endPartialSeconds   : 0x1FBF9EC, 0xC0, 0xBC;
-}
-
-init
-{
-    vars.levelTime = timer.CurrentTime.RealTime;
 }
 
 startup
@@ -24,20 +20,35 @@ startup
         31, 32,
         34, 35, 36, 37
     };
-    settings.Add("levelsplits", true, "Split on level rise");
+    settings.Add("l", true, "Split on levels");
     for (var index = 1; index <= 31; ++index)
-        settings.Add("l" + index.ToString(), true, "Level " + index.ToString() + " (button " + levelButtons[index - 1].ToString() + ")", "levelsplits");
+        settings.Add(index.ToString(), true, "Level " + index.ToString() + " (button " + levelButtons[index - 1].ToString() + ")", "l");
 
-    settings.Add("cubesplits", false, "Split on cube collect");
+    settings.Add("b", false, "Split on sub-level buttons (experimental)");
+    settings.Add("6-0", true, "Button 7 (level 6)", "b");
+    settings.Add("9-0", true, "Button 11 (level 9)", "b");
+    settings.Add("17-0", true, "Button 20 (level 17)", "b");
+    settings.Add("25-0", true, "Button 29 (level 25)", "b");
+    settings.Add("25-1", true, "Button 30 (level 25)", "b");
+    settings.Add("27-0", true, "Button 33 (level 27)", "b");
+
+    settings.Add("c", false, "Split on cubes");
     for (var index = 1; index <= 18; ++index)
-        settings.Add("c" + index.ToString(), true, "Cube " + index.ToString(), "cubesplits");
+        settings.Add("c" + index.ToString(), true, "Cube " + index.ToString(), "c");
+}
+
+init
+{
+    vars.lastSplit = timer.CurrentTime.RealTime;
+    vars.subButton = 0;
 }
 
 start
 {
     if (current.resets != old.resets)
     {
-        vars.levelTime = timer.CurrentTime.RealTime;
+        vars.lastSplit = timer.CurrentTime.RealTime;
+        vars.subButton = 0;
         return true;
     }
     return false;
@@ -45,14 +56,21 @@ start
 
 split
 {
-    if (current.level != old.level && settings["l" + current.level.ToString()] && 
-        (timer.CurrentTime.RealTime - vars.levelTime).TotalSeconds > 0.25)
+    if (current.level != old.level && settings[current.level.ToString()] && 
+        (timer.CurrentTime.RealTime - vars.lastSplit).TotalSeconds > 0.2)
     {
-        vars.levelTime = timer.CurrentTime.RealTime;
+        vars.lastSplit = timer.CurrentTime.RealTime;
+        vars.subButton = 0;
         return true;
     }
-    return
-        current.cubes != old.cubes && settings["c" + current.cubes.ToString()] ||
+    if (current.subButtons != old.subButtons && settings[current.level.ToString() + "-" + vars.subButton.ToString()] && 
+        (timer.CurrentTime.RealTime - vars.lastSplit).TotalSeconds > 0.2)
+    {
+        vars.lastSplit = timer.CurrentTime.RealTime;
+        ++vars.subButton;
+        return true;
+    }
+    return current.cubes != old.cubes && settings["c" + current.cubes.ToString()] ||
         current.resets != old.resets;
 }
 
@@ -60,7 +78,8 @@ reset
 {
     if (current.resets != old.resets && current.level != 1)
     {
-        vars.levelTime = timer.CurrentTime.RealTime;
+        vars.lastSplit = timer.CurrentTime.RealTime;
+        vars.subButton = 0;
         return true;
     }
     return false;

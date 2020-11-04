@@ -12,12 +12,12 @@ state("Refunct-Win32-Shipping")
 startup
 {
 	settings.Add("buttons", true, "Split on buttons");
-	for (var index = 0; index < 37; ++index)
-		settings.Add(index.ToString(), true, "Button " + (index + 1).ToString(), "buttons");
+	for (var index = 1; index <= 37; ++index)
+		settings.Add(index.ToString(), true, "Button " + index.ToString(), "buttons");
 
 	settings.Add("cubes", false, "Split on cubes");
-	for (var index = 0; index < 18; ++index)
-		settings.Add("c" + index.ToString(), true, "Cube " + (index + 1).ToString(), "cubes");
+	for (var index = 1; index <= 18; ++index)
+		settings.Add("c" + index.ToString(), true, "Cube " + index.ToString(), "cubes");
 }
 
 init

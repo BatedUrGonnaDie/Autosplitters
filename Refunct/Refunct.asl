@@ -12,12 +12,12 @@ state("Refunct-Win32-Shipping")
 startup
 {
 	settings.Add("buttons", true, "Split on buttons");
-	for (var index = 0; index < 37; ++index)
-		settings.Add(index.ToString(), true, "Button " + (index + 1).ToString(), "buttons");
+	for (var index = 1; index <= 37; ++index)
+		settings.Add(index.ToString(), true, "Button " + index.ToString(), "buttons");
 
 	settings.Add("cubes", false, "Split on cubes");
-	for (var index = 0; index < 18; ++index)
-		settings.Add("c" + index.ToString(), true, "Cube " + (index + 1).ToString(), "cubes");
+	for (var index = 1; index <= 18; ++index)
+		settings.Add("c" + index.ToString(), true, "Cube " + index.ToString(), "cubes");
 }
 
 init
@@ -38,15 +38,17 @@ start
 
 split
 {
-	if (current.buttons > vars.buttons && settings[vars.buttons.ToString()])
+	if (current.buttons > vars.buttons)
 	{
 		++vars.buttons;
-		return true;
+		if (settings[vars.buttons.ToString()])
+			return true;
 	}
-	if (current.cubes > vars.cubes && settings["c" + vars.cubes.ToString()])
+	if (current.cubes > vars.cubes)
 	{
 		++vars.cubes;
-		return true;
+		if (settings["c" + vars.cubes.ToString()])
+			return true;
 	}
 	return current.resets != old.resets;
 }

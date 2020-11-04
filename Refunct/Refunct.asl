@@ -38,15 +38,15 @@ start
 
 split
 {
-	if (current.buttons > vars.buttons && settings[vars.buttons.ToString()])
+	if (current.buttons > vars.buttons)
 	{
 		++vars.buttons;
-		return true;
+		return settings[vars.buttons.ToString()];
 	}
-	if (current.cubes > vars.cubes && settings["c" + vars.cubes.ToString()])
+	if (current.cubes > vars.cubes)
 	{
 		++vars.cubes;
-		return true;
+		return settings["c" + vars.cubes.ToString()];
 	}
 	return current.resets != old.resets;
 }

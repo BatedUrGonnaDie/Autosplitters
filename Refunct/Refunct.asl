@@ -12,29 +12,54 @@ state("Refunct-Win32-Shipping")
 startup
 {
 	settings.Add("buttons", true, "Split on buttons");
-	for (var index = 1; index <= 37; ++index)
-		settings.Add(index.ToString(), true, "Button " + index.ToString(), "buttons");
+	for (var index = 0; index < 37; ++index)
+		settings.Add(index.ToString(), true, "Button " + (index + 1).ToString(), "buttons");
 
 	settings.Add("cubes", false, "Split on cubes");
-	for (var index = 1; index <= 18; ++index)
-		settings.Add("c" + index.ToString(), true, "Cube " + index.ToString(), "cubes");
+	for (var index = 0; index < 18; ++index)
+		settings.Add("c" + index.ToString(), true, "Cube " + (index + 1).ToString(), "cubes");
+}
+
+init
+{
+	vars.buttons = 0;
+	vars.cubes = 0;
 }
 
 start
 {
-	return current.resets != old.resets;
+	if (current.resets != old.resets)
+	{
+		vars.buttons = current.buttons;
+		vars.cubes = current.cubes;
+		return true;
+	}
 }
 
 split
 {
-	return current.buttons != old.buttons && settings[current.buttons.ToString()] ||
-		current.cubes != old.cubes && settings["c" + current.cubes.ToString()] ||
-		current.resets != old.resets;
+	if (current.buttons > vars.buttons && settings[vars.buttons.ToString()])
+	{
+		++vars.buttons;
+		return true;
+	}
+	if (current.cubes > vars.cubes && settings["c" + vars.cubes.ToString()])
+	{
+		++vars.cubes;
+		return true;
+	}
+	return current.resets != old.resets;
 }
 
 reset
 {
-	return current.resets != old.resets && current.buttons == 0;
+	if (current.resets != old.resets)
+	{
+		vars.buttons = current.buttons;
+		vars.cubes = current.cubes;
+		if (current.buttons == 0)
+			return true;
+	}
 }
 
 gameTime

@@ -41,12 +41,14 @@ split
 	if (current.buttons > vars.buttons)
 	{
 		++vars.buttons;
-		return settings[vars.buttons.ToString()];
+		if (settings[vars.buttons.ToString()])
+			return true;
 	}
 	if (current.cubes > vars.cubes)
 	{
 		++vars.cubes;
-		return settings["c" + vars.cubes.ToString()];
+		if (settings["c" + vars.cubes.ToString()])
+			return true;
 	}
 	return current.resets != old.resets;
 }

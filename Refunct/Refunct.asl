@@ -28,8 +28,12 @@ init
 
 update
 {
-	if (timer.CurrentPhase == TimerPhase.Ended && old.resets != current.resets)
-		new TimerModel {CurrentState = timer}.Reset();
+	if (old.resets != current.resets) {
+		vars.buttons = current.buttons;
+		vars.cubes = current.cubes;
+		if (current.buttons == 0)
+			new TimerModel {CurrentState = timer}.Reset();
+	}
 }
 
 start
@@ -55,16 +59,6 @@ split
 		return settings["c" + vars.cubes.ToString()];
 	}
 	return current.resets != old.resets;
-}
-
-reset
-{
-	if (current.resets != old.resets)
-	{
-		vars.buttons = current.buttons;
-		vars.cubes = current.cubes;
-		return current.buttons == 0;
-	}
 }
 
 gameTime

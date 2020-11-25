@@ -26,6 +26,12 @@ init
 	vars.cubes = 0;
 }
 
+update
+{
+	if (timer.CurrentPhase == TimerPhase.Ended && old.resets != current.resets)
+		new TimerModel {CurrentState = timer}.Reset();
+}
+
 start
 {
 	if (current.resets != old.resets)
@@ -41,14 +47,12 @@ split
 	if (current.buttons > vars.buttons)
 	{
 		++vars.buttons;
-		if (settings[vars.buttons.ToString()])
-			return true;
+		return settings[vars.buttons.ToString()];
 	}
 	if (current.cubes > vars.cubes)
 	{
 		++vars.cubes;
-		if (settings["c" + vars.cubes.ToString()])
-			return true;
+		return settings["c" + vars.cubes.ToString()];
 	}
 	return current.resets != old.resets;
 }
@@ -59,8 +63,7 @@ reset
 	{
 		vars.buttons = current.buttons;
 		vars.cubes = current.cubes;
-		if (current.buttons == 0)
-			return true;
+		return current.buttons == 0;
 	}
 }
 

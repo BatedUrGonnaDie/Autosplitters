@@ -11,6 +11,7 @@ state("Refunct-Win32-Shipping")
 
 startup
 {
+	vars.timerModel = new TimerModel {CurrentState = timer};
 	settings.Add("buttons", true, "Split on buttons");
 	for (var index = 1; index <= 37; ++index)
 		settings.Add(index.ToString(), true, "Button " + index.ToString(), "buttons");
@@ -32,7 +33,7 @@ update
 		vars.buttons = current.buttons;
 		vars.cubes = current.cubes;
 		if (current.buttons == 0)
-			new TimerModel {CurrentState = timer}.Reset();
+			vars.timerModel.Reset();
 	}
 }
 

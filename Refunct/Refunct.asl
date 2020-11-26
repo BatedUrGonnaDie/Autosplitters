@@ -11,6 +11,7 @@ state("Refunct-Win32-Shipping")
 
 startup
 {
+	vars.timerModel = new TimerModel {CurrentState = timer};
 	settings.Add("buttons", true, "Split on buttons");
 	for (var index = 1; index <= 37; ++index)
 		settings.Add(index.ToString(), true, "Button " + index.ToString(), "buttons");
@@ -24,6 +25,17 @@ init
 {
 	vars.buttons = 0;
 	vars.cubes = 0;
+}
+
+update
+{
+	if (current.resets != old.resets)
+	{
+		vars.buttons = current.buttons;
+		vars.cubes = current.cubes;
+		if (current.buttons == 0)
+			vars.timerModel.Reset();
+	}
 }
 
 start
@@ -41,27 +53,14 @@ split
 	if (current.buttons > vars.buttons)
 	{
 		++vars.buttons;
-		if (settings[vars.buttons.ToString()])
-			return true;
+		return settings[vars.buttons.ToString()];
 	}
 	if (current.cubes > vars.cubes)
 	{
 		++vars.cubes;
-		if (settings["c" + vars.cubes.ToString()])
-			return true;
+		return settings["c" + vars.cubes.ToString()];
 	}
 	return current.resets != old.resets;
-}
-
-reset
-{
-	if (current.resets != old.resets)
-	{
-		vars.buttons = current.buttons;
-		vars.cubes = current.cubes;
-		if (current.buttons == 0)
-			return true;
-	}
 }
 
 gameTime

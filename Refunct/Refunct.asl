@@ -29,7 +29,8 @@ init
 
 update
 {
-	if (old.resets != current.resets) {
+	if (current.resets != old.resets)
+	{
 		vars.buttons = current.buttons;
 		vars.cubes = current.cubes;
 		if (current.buttons == 0)

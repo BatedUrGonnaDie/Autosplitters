@@ -30,11 +30,12 @@ init
 
 update
 {
+	bool isMultiRun = timer.Run.CategoryName.ToLower() == "10x any%" || timer.Run.CategoryName.ToLower() == "100x any%";
 	if (current.resets != old.resets)
 	{
 		vars.buttons = current.buttons;
 		vars.cubes = current.cubes;
-		if (current.buttons == 0)
+		if (current.buttons == 0 && !isMultiRun)
 			vars.timerModel.Reset();
 	}
 }

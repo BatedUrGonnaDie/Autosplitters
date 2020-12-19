@@ -34,7 +34,7 @@ update
 	{
 		vars.buttons = current.buttons;
 		vars.cubes = current.cubes;
-		if (current.buttons == 0)
+		if (current.buttons == 0 && settings.ResetEnabled)
 			vars.timerModel.Reset();
 	}
 }

@@ -64,6 +64,11 @@ split
 	return current.resets != old.resets;
 }
 
+reset
+{
+	return false;
+}
+
 gameTime
 {
 	if (current.endSeconds > current.startSeconds)

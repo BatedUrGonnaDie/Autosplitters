@@ -61,7 +61,7 @@ split
 		++vars.cubes;
 		return settings["c" + vars.cubes.ToString()];
 	}
-	return current.resets != old.resets;
+	return current.resets != old.resets && current.buttons > 0;
 }
 
 reset

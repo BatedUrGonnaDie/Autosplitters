@@ -20,22 +20,18 @@ startup {
 	settings.Add("Split on buttons:");
 	settings.Add("Split on cubes:");
 
-	for (int i = 1, bN = 1; i <= 31; ++i, ++bN) {
-		if (eB.ContainsKey(i)) {
+	for (int i = 1, bN = 1; i <= 31; ++i, ++bN)
+		if (eB.ContainsKey(i))
 			for (int j = 1; j <= eB[i]; ++j) {
 				settings.Add("b" + bN, j == eB[i] ? true : false, "Button " + i + "-" + j, "Split on buttons:");
 				settings.SetToolTip("b" + bN, (j == 1 ? "First" : j == 2 ? "Second" : "Third") + " button of " + i);
 				if (j < eB[i]) ++bN;
 			}
-		} else {
+		else
 			settings.Add("b" + bN, true, "Button " + i, "Split on buttons:");
-		}
-	}
 
-	for (int i = 1; i <= 18; ++i) {
-		string iS = i.ToString();
-		settings.Add("c" + iS, false, "Cube " + iS, "Split on cubes:");
-	}
+	for (int i = 1; i <= 18; ++i)
+		settings.Add("c" + i, false, "Cube " + i, "Split on cubes:");
 
 	vars.buttons = 0;
 }

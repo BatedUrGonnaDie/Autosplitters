@@ -9,7 +9,7 @@ state("Refunct-Win32-Shipping") {
 }
 
 startup {
-	var eB =new Dictionary<int, int> {
+	var eB = new Dictionary<int, int> {
 		{7, 2},
 		{10, 2},
 		{18, 2},
@@ -65,7 +65,7 @@ reset {
 
 gameTime {
 	if (current.endSeconds > current.startSeconds) {
-		float s = (float)current.endSeconds - current.startSeconds;
+		float s = (float)(current.endSeconds - current.startSeconds);
 		float ms = current.endPartialSeconds - current.startPartialSeconds;
 		return TimeSpan.FromSeconds(s + ms);
 	}

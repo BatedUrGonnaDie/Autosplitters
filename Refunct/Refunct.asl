@@ -9,7 +9,7 @@ state("Refunct-Win32-Shipping") {
 }
 
 startup {
-	var eB = new Dictionary<int, int> {
+	var extraButtons = new Dictionary<int, int> {
 		{7, 2},
 		{10, 2},
 		{18, 2},
@@ -20,18 +20,20 @@ startup {
 	settings.Add("Split on buttons:");
 	settings.Add("Split on cubes:");
 
-	for (int i = 1, bN = 1; i <= 31; ++i, ++bN)
-		if (eB.ContainsKey(i))
-			for (int j = 1; j <= eB[i]; ++j) {
-				settings.Add("b" + bN, true, "Button " + i + "-" + j, "Split on buttons:");
-				settings.SetToolTip("b" + bN, (j == 1 ? "First" : j == 2 ? "Second" : "Third") + " button of " + i);
-				if (j < eB[i]) ++bN;
+	for (int cluster = 1, actualButtonNumber = 1; cluster <= 31; ++cluster, ++actualButtonNumber) {
+		if (extraButtons.ContainsKey(cluster)) {
+			for (int buttonInCluster = 1; buttonInCluster <= extraButtons[cluster]; ++buttonInCluster) {
+				settings.Add("b" + actualButtonNumber, true, "Button " + cluster + "-" + buttonInCluster, "Split on buttons:");
+				settings.SetToolTip("b" + actualButtonNumber, (buttonInCluster == 1 ? "First" : buttonInCluster == 2 ? "Second" : "Third") + " button of " + cluster);
+				if (buttonInCluster < extraButtons[cluster]) ++actualButtonNumber;
 			}
-		else
-			settings.Add("b" + bN, true, "Button " + i, "Split on buttons:");
+		} else {
+			settings.Add("b" + actualButtonNumber, true, "Button " + cluster, "Split on buttons:");
+		}
+	}
 
-	for (int i = 1; i <= 18; ++i)
-		settings.Add("c" + i, false, "Cube " + i, "Split on cubes:");
+	for (int cube = 1; cube <= 18; ++cube)
+		settings.Add("c" + cube, false, "Cube " + cube, "Split on cubes:");
 
 	vars.buttons = 0;
 }

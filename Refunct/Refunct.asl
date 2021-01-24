@@ -13,9 +13,12 @@ startup
 {
 	timer.CurrentTimingMethod = TimingMethod.GameTime;
 	vars.timerModel = new TimerModel { CurrentState = timer };
+
+	string[] buttonNames = { "1", "2", "3", "4", "5", "6", "7-1", "7-2", "8", "9", "10-1", "10-2", "11", "12", "13", "14", "15", "16", "17", "18-1", "18-2", "19", "20", "21", "22", "23", "24", "25", "26-1", "26-2", "26-3", "27", "28-1", "28-2", "29", "30", "31" };
+
 	settings.Add("buttons", true, "Split on buttons");
 	for (var index = 1; index <= 37; ++index)
-		settings.Add(index.ToString(), true, "Button " + index.ToString(), "buttons");
+		settings.Add(index.ToString(), true, "Button " + buttonNames[index - 1], "buttons");
 
 	settings.Add("cubes", false, "Split on cubes");
 	for (var index = 1; index <= 18; ++index)

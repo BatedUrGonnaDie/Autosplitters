@@ -5,7 +5,6 @@ Starts and resets the timer on every new game. Splits can be selected in the set
 Sample splits are included.
 
 ## Instructions
-### Easiest (will update automatically)
 * open your split file (any category) and Right Click LiveSplit 🡆 Edit Splits...
 * make sure the game name is set to "Refunct"
 * above your splits, an "Activate" button will appear, which you need to click

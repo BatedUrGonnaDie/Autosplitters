@@ -23,7 +23,7 @@ startup {
 	for (int i = 1, bN = 1; i <= 31; ++i, ++bN)
 		if (eB.ContainsKey(i))
 			for (int j = 1; j <= eB[i]; ++j) {
-				settings.Add("b" + bN, j == eB[i] ? true : false, "Button " + i + "-" + j, "Split on buttons:");
+				settings.Add("b" + bN, true, "Button " + i + "-" + j, "Split on buttons:");
 				settings.SetToolTip("b" + bN, (j == 1 ? "First" : j == 2 ? "Second" : "Third") + " button of " + i);
 				if (j < eB[i]) ++bN;
 			}

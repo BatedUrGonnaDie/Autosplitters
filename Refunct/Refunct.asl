@@ -65,7 +65,7 @@ split {
 		return settings["c" + current.cubes.ToString()];
 }
 
-reset { return false }
+reset { return false; }
 
 gameTime {
 	if (current.endSeconds > current.startSeconds) {

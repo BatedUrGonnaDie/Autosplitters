@@ -36,6 +36,14 @@ startup {
 		settings.Add("c" + cube, false, "Cube " + cube, "Split on cubes:");
 
 	vars.buttons = 0;
+	vars.timerModel = new TimerModel { CurrentState = timer };
+	
+	timer.CurrentTimingMethod = TimingMethod.GameTime;
+}
+
+update {
+	if (settings.ResetEnabled && old.resets < current.resets && current.buttons == 0)
+		vars.timerModel.Reset();
 }
 
 start {
@@ -57,9 +65,7 @@ split {
 		return settings["c" + current.cubes.ToString()];
 }
 
-reset {
-	return old.resets < current.resets && current.buttons == 0;
-}
+reset { return false }
 
 gameTime {
 	if (current.endSeconds > current.startSeconds) {

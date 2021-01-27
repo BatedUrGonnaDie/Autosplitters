@@ -1,11 +1,15 @@
 # Refunct Autosplitter
-(Readme by firestack, BatedUrGonnaDie, Ero)
 ## Info
 Starts and resets the timer on every new game. Splits can be selected in the settings, individual buttons and cubes available.
-Sample splits are included.
+Sample splits are included in this folder.
 
 ## Instructions
-* Open your split file (any category) and Right Click LiveSplit 🡆 Edit Splits...
-* Make sure the game name is set to "Refunct"
-* Above your splits, an "Activate" button will appear, which you need to click
-* Set LiveSplit to compare against Game Time (Right Click LiveSplit 🡆 Compare Against 🡆 Game Time)
+* Download the desired sample splits
+* Open LiveSplit
+* Right click LiveSplit 🡆 Open Splits 🡆 From File... 🡆 Choose your sample splits
+* Right Click LiveSplit 🡆 Edit Splits...
+* Click "Activate" above the splits
+* Click "Settings" to adjust splits as desired  
+​  
+​  
+(Readme by @firestack, @BatedUrGonnaDie, @Ero, @DomGries)

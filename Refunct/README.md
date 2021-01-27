@@ -10,6 +10,6 @@ Sample splits are included in this folder.
 * Right Click LiveSplit 🡆 Edit Splits...
 * Click "Activate" above the splits
 * Click "Settings" to adjust splits as desired  
-​  
-​  
-(Readme by @firestack, @BatedUrGonnaDie, @Ero, @DomGries)
+
+
+(Readme by @firestack, @BatedUrGonnaDie, @just-ero, @DomGries)

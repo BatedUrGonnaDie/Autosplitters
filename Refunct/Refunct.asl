@@ -11,43 +11,59 @@ state("Refunct-Win32-Shipping")
 
 startup
 {
-	timer.CurrentTimingMethod = TimingMethod.GameTime;
-	vars.timerModel = new TimerModel { CurrentState = timer };
+	var extraButtons = new Dictionary<int, int>
+	{
+		{7, 2},
+		{10, 2},
+		{18, 2},
+		{26, 3},
+		{28, 2}
+	};
 
-	string[] buttonNames = { "1", "2", "3", "4", "5", "6", "7-1", "7-2", "8", "9", "10-1", "10-2", "11", "12", "13", "14", "15", "16", "17", "18-1", "18-2", "19", "20", "21", "22", "23", "24", "25", "26-1", "26-2", "26-3", "27", "28-1", "28-2", "29", "30", "31" };
+	settings.Add("Split on buttons:");
+	settings.Add("Split on cubes:");
 
-	settings.Add("buttons", true, "Split on buttons");
-	for (var index = 1; index <= 37; ++index)
-		settings.Add(index.ToString(), true, "Button " + buttonNames[index - 1], "buttons");
+	for (int cluster = 1, actualButtonNumber = 1; cluster <= 31; ++cluster, ++actualButtonNumber)
+	{
+		if (extraButtons.ContainsKey(cluster))
+		{
+			for (int buttonInCluster = 1; buttonInCluster <= extraButtons[cluster]; ++buttonInCluster)
+			{
+				settings.Add("b" + actualButtonNumber, true, "Button " + cluster + "-" + buttonInCluster, "Split on buttons:");
+				settings.SetToolTip("b" + actualButtonNumber, new[]{"First", "Second", "Third"}[buttonInCluster - 1] + " button of " + cluster);
+				if (buttonInCluster < extraButtons[cluster]) ++actualButtonNumber;
+			}
+		}
+		else
+		{
+			settings.Add("b" + actualButtonNumber, true, "Button " + cluster, "Split on buttons:");
+		}
+	}
 
-	settings.Add("cubes", false, "Split on cubes");
-	for (var index = 1; index <= 18; ++index)
-		settings.Add("c" + index.ToString(), true, "Cube " + index.ToString(), "cubes");
-}
+	for (int cube = 1; cube <= 18; ++cube)
+		settings.Add("c" + cube, false, "Cube " + cube, "Split on cubes:");
 
-init
-{
 	vars.buttons = 0;
-	vars.cubes = 0;
+	vars.timerModel = new TimerModel { CurrentState = timer };
+	
+	timer.CurrentTimingMethod = TimingMethod.GameTime;
 }
 
 update
 {
-	if (current.resets != old.resets)
+	if (old.resets < current.resets && current.buttons == 0)
 	{
-		vars.buttons = current.buttons;
-		vars.cubes = current.cubes;
-		if (current.buttons == 0 && settings.ResetEnabled)
+		vars.buttons = 0;
+		if (settings.ResetEnabled)
 			vars.timerModel.Reset();
 	}
 }
 
 start
 {
-	if (current.resets != old.resets)
+	if (old.resets < current.resets)
 	{
 		vars.buttons = current.buttons;
-		vars.cubes = current.cubes;
 		return true;
 	}
 }
@@ -57,14 +73,11 @@ split
 	if (current.buttons > vars.buttons)
 	{
 		++vars.buttons;
-		return settings[vars.buttons.ToString()];
+		return settings["b" + vars.buttons.ToString()];
 	}
-	if (current.cubes > vars.cubes)
-	{
-		++vars.cubes;
-		return settings["c" + vars.cubes.ToString()];
-	}
-	return current.resets != old.resets && current.buttons > 0;
+
+	if (old.cubes < current.cubes)
+		return settings["c" + current.cubes.ToString()];
 }
 
 reset
@@ -75,8 +88,9 @@ reset
 gameTime
 {
 	if (current.endSeconds > current.startSeconds)
-		return TimeSpan.FromSeconds(
-			Convert.ToDouble(current.endSeconds - current.startSeconds) +
-			Convert.ToDouble(current.endPartialSeconds - current.startPartialSeconds)
-		);
+	{
+		float s = (float)(current.endSeconds - current.startSeconds);
+		float ms = current.endPartialSeconds - current.startPartialSeconds;
+		return TimeSpan.FromSeconds(s + ms);
+	}
 }

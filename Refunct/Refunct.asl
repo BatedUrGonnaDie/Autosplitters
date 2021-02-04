@@ -51,10 +51,10 @@ startup
 
 update
 {
-	if (old.resets < current.resets && current.buttons == 0)
+	if (old.resets < current.resets)
 	{
 		vars.buttons = 0;
-		if (settings.ResetEnabled)
+		if (current.buttons == 0 && settings.ResetEnabled)
 			vars.timerModel.Reset();
 	}
 }
